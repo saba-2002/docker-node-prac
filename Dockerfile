@@ -1,23 +1,20 @@
-# Use a more recent version of Node.js
-FROM node:18-alpine
+# Use the official Node.js image
+FROM node:16
 
-# Set the working directory in the container
-WORKDIR /nodeapp
+# Set the working directory
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available)
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install the application dependencies
 RUN npm install
 
-# Copy the rest of your application code
+# Copy the application source code
 COPY . .
 
-# Expose port 3000
+# Expose the application port
 EXPOSE 3000
 
-# Define environment variable
-ENV NAME=nodeapp
-
-# Run the application
-CMD ["npm", "start"]
+# Command to run the application
+CMD ["node", "app.js"]
