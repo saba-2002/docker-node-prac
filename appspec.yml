@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/my-node-app
+
+hooks:
+  AfterInstall:
+    - location: scripts/start.sh
+      timeout: 300
+      runas: root
