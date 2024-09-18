@@ -1,20 +1,12 @@
 # Use an official Node.js runtime as a parent image
-FROM node:14
+version: 0.2
 
-# Set the working directory
-WORKDIR /usr/src/app
-
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the application code
-COPY . .
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Command to run the app
-CMD ["node", "server.js"]
+phases:
+  build:
+    commands:
+      - name: Install dependencies
+        command: npm install
+      - name: Build Docker image
+        command: docker build -t b950bbfb5430.dkr.ap-south-1.amazonaws.com/mynodeapp:latest .
+      - name: Push Docker image to ECR
+        command: docker push b950bbfb5430.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest
